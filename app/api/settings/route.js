@@ -19,7 +19,9 @@ export async function POST(request) {
           company_address = @company_address, 
           gstin = @gstin, 
           phone = @phone, 
-          email = @email 
+          email = @email,
+          invoice_template = @invoice_template,
+          theme_color = @theme_color
       WHERE id = 1
     `);
     
@@ -28,7 +30,9 @@ export async function POST(request) {
        company_address: body.company_address || null,
        gstin: body.gstin || null,
        phone: body.phone || null,
-       email: body.email || null
+       email: body.email || null,
+       invoice_template: body.invoice_template || 'professional',
+       theme_color: body.theme_color || '#2563eb'
     });
 
     return NextResponse.json({ success: true }, { status: 200 });

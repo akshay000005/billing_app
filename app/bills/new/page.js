@@ -44,6 +44,13 @@ export default function NewBill() {
     setCart(newCart);
   };
 
+  const updateAmount = (index, amount) => {
+    const newCart = [...cart];
+    newCart[index].amount = amount;
+    // We intentionally don't update rate based on amount, so the user can just override the taxable value directly.
+    setCart(newCart);
+  };
+
   const removeRow = (index) => {
     setCart(cart.filter((_, i) => i !== index));
   };
@@ -176,7 +183,9 @@ export default function NewBill() {
                         <input type="number" min="1" className="form-input" style={{padding: '8px'}} value={row.quantity} onChange={e => updateQuantity(idx, parseInt(e.target.value) || 1)} />
                       </td>
                       <td>{row.gst_rate}%</td>
-                      <td>₹{row.amount.toFixed(2)}</td>
+                      <td>
+                        <input type="number" step="0.01" className="form-input" style={{padding: '8px', width: '100px'}} value={row.amount} onChange={e => updateAmount(idx, parseFloat(e.target.value) || 0)} />
+                      </td>
                       <td><button type="button" className="btn btn-danger" style={{padding: '6px 12px'}} onClick={() => removeRow(idx)}>X</button></td>
                     </tr>
                   ))}
